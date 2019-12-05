@@ -1,0 +1,48 @@
+version: '3'
+
+services:
+  # server:
+  #   build: server
+  #   environment:
+  #     NODE_ENV: development
+  #   volumes:
+  #     - ./server/src:/app/src:ro
+  #     - ./server/node_modules:/app/node_modules
+  #   depends_on:
+  #     - db
+  # client:
+  #   build: client
+  #   environment:
+  #     NODE_ENV: development
+  #   volumes:
+  #     - ./client/src:/app/src:ro
+  #     - ./client/node_modules:/app/node_modules
+  #     - www:/app
+  #   depends_on:
+  #     - nginx
+  # nginx:
+  #   image: nginx:latest
+  #   ports:
+  #     - 8000:80
+  #   volumes:
+  #     - ./nginx/conf.d:/etc/nginx/conf.d:ro
+  #     - www:/www/app:ro
+  #   links:
+  #     - server
+  db:
+    image: mysql:8
+    environment:
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+    restart: always
+    ports:
+      - 3306:3306
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/conf.d:/etc/mysql/conf.d:ro
+      - ./mysql/initdb.d:/docker-entrypoint-initdb.d:ro
+
+volumes:
+  www:

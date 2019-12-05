@@ -1,0 +1,4 @@
+export MYSQL_ROOT_PASSWORD=password
+export MYSQL_DATABASE=casting-comments
+export MYSQL_USER=cc
+export MYSQL_PASSWORD=password
